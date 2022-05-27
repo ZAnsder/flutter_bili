@@ -2,6 +2,7 @@
  * 单例模式封装一方库请求
  * 
  */
+import 'package:flutter_bili/http/core/dio_adapter.dart';
 import 'package:flutter_bili/http/core/hi_adapter.dart';
 import 'package:flutter_bili/http/core/hi_error.dart';
 import 'package:flutter_bili/http/core/mock_adapter.dart';
@@ -22,11 +23,18 @@ class HiNet {
     } on HiNetError catch (e) {
       error = e;
       response = e.data;
+      printLog(e.message);
     } catch (e) {
       error = e;
+      printLog(e);
+    }
+
+    if (response == null) {
+      printLog(error);
     }
 
     var result = response?.data;
+    printLog(result);
     var status = response?.statusCode;
     switch (status) {
       case 200:
@@ -48,11 +56,9 @@ class HiNet {
   }
 
   Future send(BaseRequest request) async {
-    printLog('url: ${request.url()}');
-    printLog('method: ${request.httpMethod()}');
     request.addHeader('token', '123');
-    printLog('header: ${request.header}');
-    return MockAdapter().send(request);
+    // return MockAdapter().send(request);
+    return DioAdapter().send(request);
   }
 
   void printLog(str) {

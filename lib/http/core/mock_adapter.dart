@@ -7,8 +7,8 @@ class MockAdapter extends HiNetAdapter {
     return Future.delayed(const Duration(milliseconds: 1000), () {
       return HiNetResponse(
         request: request,
-        // statusCode: 500,
-        // data: {'code': 0, 'message': 'success'} as T,
+        statusCode: 200,
+        data: {'code': 0, 'message': 'success'} as T,
       );
     });
   }
