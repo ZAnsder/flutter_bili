@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bili/db/hi_cache.dart';
 import 'package:flutter_bili/http/core/hi_net.dart';
 import 'package:flutter_bili/http/request/test_request.dart';
 
@@ -53,14 +54,24 @@ class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
   void _incrementCounter() async {
-    TestRequest request1 = TestRequest();
-    request1.addParams('aaa', '111').addParams('requestPrams', '222');
-    try {
-      var result = await HiNet.getInstance().fire(request1);
-      print('result: ${result}');
-    } catch (e) {
-      print(e);
-    }
+    // TestRequest request1 = TestRequest();
+    // request1.addParams('aaa', '111').addParams('requestPrams', '222');
+    // try {
+    //   var result = await HiNet.getInstance().fire(request1);
+    //   print('result: ${result}');
+    // } catch (e) {
+    //   print(e);
+    // }
+
+    HiCache.getInstance().setBool('aa', false);
+    var value = HiCache.getInstance().get('aa');
+    print('value: ${value}');
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    HiCache.preInit();
   }
 
   @override
