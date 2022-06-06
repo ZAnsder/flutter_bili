@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bili/db/hi_cache.dart';
 import 'package:flutter_bili/http/core/hi_net.dart';
+import 'package:flutter_bili/http/dao/login_dao.dart';
 import 'package:flutter_bili/http/request/test_request.dart';
 
 void main() {
@@ -63,9 +64,12 @@ class _MyHomePageState extends State<MyHomePage> {
     //   print(e);
     // }
 
-    HiCache.getInstance().setBool('aa', false);
-    var value = HiCache.getInstance().get('aa');
-    print('value: ${value}');
+    // HiCache.getInstance().setBool('aa', false);
+    // var value = HiCache.getInstance().get('aa');
+    // print('value: ${value}');
+
+    var result = await LoginDao.register('zx', '123456', '2233', '8899');
+    print('result: ${result}');
   }
 
   @override

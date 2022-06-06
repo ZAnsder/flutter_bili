@@ -1,3 +1,5 @@
+import 'package:flutter_bili/http/dao/login_dao.dart';
+
 enum HttpMethod { get, post, delete, put }
 
 abstract class BaseRequest {
@@ -33,7 +35,10 @@ abstract class BaseRequest {
       uri = Uri.http(authority(), pathStr, params);
     }
 
-    print('url: ${uri.toString()}');
+    if (needLogin()) {
+      addHeader(LoginDao.boardingPass, LoginDao.getToken());
+    }
+
     return uri.toString();
   }
 
@@ -44,8 +49,10 @@ abstract class BaseRequest {
     return this;
   }
 
-  Map<String, String> header = Map();
-
+  Map<String, String> header = {
+    'course-flag': 'fa',
+    'auth-token': 'ZmEtMjAyMS0wNC0xMiAyMToyMjoyMC1mYQ==fa',
+  };
   BaseRequest addHeader(String k, Object v) {
     header[k] = v.toString();
     return this;
